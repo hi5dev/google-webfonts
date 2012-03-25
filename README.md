@@ -71,6 +71,7 @@ app:
       erb :index
     end
 
+###
 
     # views/index.erb
     <html>
