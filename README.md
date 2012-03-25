@@ -70,7 +70,8 @@ app:
     get '/' do
       erb :index
     end
-    
+
+
     # views/index.erb
     <html>
       <head>
