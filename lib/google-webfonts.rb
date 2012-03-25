@@ -10,5 +10,7 @@ end
 require "google-webfonts/version"
 require "google-webfonts/helper"
 
+require 'google-webfonts/sinatra' if defined? Sinatra
+
 # include the webfonts helper methods in the Rails view helpers
 ActionView::Base.send :include, Google::Webfonts::Helper
