@@ -8,10 +8,6 @@ describe "Sinatra" do
     Sinatra::Application
   end
   
-  it "should include Google::Webfonts::Helper in Sinatra::Application" do
-    Sinatra::Application.ancestors.should include Google::Webfonts::Helper
-  end
-  
   it "should respond to google_webfonts_link_tag" do
     tag = "<link href=\"http://fonts.googleapis.com/css?family=Droid+Sans\" rel=\"stylesheet\" type=\"text/css\" />"
     
