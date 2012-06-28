@@ -84,12 +84,16 @@ module Google
         
         # the fonts are separated by pipes
         family = fonts.join("|")
-        
+
+        # generate https links if we are an https site
+        request.ssl? ? request_method = "https" : request_method = "http"
+
         # return the link tag
         tag 'link', {
             :rel  => :stylesheet,
             :type => Mime::CSS,
             :href => "http://fonts.googleapis.com/css?family=#{family}"
+            :href => "#{request_method}://fonts.googleapis.com/css?family=#{family}"
           },
           false,
           false
