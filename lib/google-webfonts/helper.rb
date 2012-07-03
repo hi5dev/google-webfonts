@@ -42,10 +42,7 @@ module Google
         
         options.each do |option|
           case option.class.to_s
-          when "Symbol", "String"
-            # titleize the font name
-            font_name = option.to_s.titleize
-            
+          when "Symbol", "String"            
             # replace any spaces with pluses
             font_name = font_name.gsub(" ", "+")
             
