@@ -106,6 +106,12 @@ describe Google::Webfonts::Helper do
       end
     end
     
+    context "when the font name contains all caps acronym" do
+      it "should leave the acronym as-is" do
+        validate google_webfonts_link_tag("PT Sans"), 'PT\+Sans'
+      end
+    end
+
     context "when the font name includes a space" do
       it "should conver the space to a +" do
         validate google_webfonts_link_tag("Droid Sans" => [400, 700]), 'Droid\+Sans:400,700'
