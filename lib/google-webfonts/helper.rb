@@ -42,15 +42,12 @@ module Google
         
         options.each do |option|
           case option.class.to_s
-          when "Symbol", "String"
-            # titleize the font name
-            font_name = option.to_s.titleize
-            
-            # replace any spaces with pluses
-            font_name = font_name.gsub(" ", "+")
-            
+          when "Symbol"
             # include the font
-            fonts << font_name
+            fonts << prepare_font_name(option)
+          when "String"
+            # Allow font names passed literally (eg: 'Alegreya SC' is broken by titleize)
+            fonts << prepare_font_name(option)
           when "Hash"
             fonts += option.inject([]) do |result, (font_name, sizes)|
               # ensure sizes is an Array
@@ -62,17 +59,8 @@ module Google
                 end
               end
               
-              # convert font name into a String
-              font_name = font_name.to_s
-              
-              # replace underscores with spaces
-              # and titleize the font name
-              font_name = font_name.gsub("_", " ")
-              font_name = font_name.titleize
-              
-              # convert the spaces into pluses 
-              font_name = font_name.gsub(" ", "+")
-              
+              font_name = prepare_font_name(font_name)
+
               # return font_name:sizes where
               # sizes is a comma separated list
               result << "#{font_name}:#{sizes.join(",")}"
@@ -97,6 +85,25 @@ module Google
           },
           false,
           false
+      end
+
+      private
+      # Prepare the font name for inclusion in a URI.
+      #
+      # raw_name can be either a string or a symbol.
+      def prepare_font_name(raw_name)
+        font_name = raw_name
+        case raw_name.class.to_s
+        when "String"
+        when "Symbol"
+          # titleize the font name
+          font_name = font_name.to_s.titleize
+        else
+          raise ArgumentError, "expected a String or Symbol as the font name, got a #{raw_name.class}"
+        end
+        # convert the spaces into pluses 
+        font_name = font_name.gsub(" ", "+")
+        font_name
       end
     end
     
