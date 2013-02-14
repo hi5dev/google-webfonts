@@ -31,6 +31,10 @@ module Google
       #                            :yanone_kaffeesatz => 400
       #   # => '<link href="http://fonts.googleapis.com/css?family=Droid+Sans|Yanone+Kaffeesatz:400" rel="stylesheet" type="text/css" />'
       #
+      #   google_webfonts_link_tag :roboto => %w(400 700 400italic 700italic), 
+      #                            :subset => [:latin, :cyrillic]
+      #   # => '<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,400italic,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>'
+      # 
       # Returns a <link> tag for the Google Webfonts stylesheet.
       # Raises ArgumentError if no options are passed.
       # Raises ArgumentError if an option is not a Symbol, String, or Hash.
@@ -39,6 +43,7 @@ module Google
         raise ArgumentError, "expected at least one font" if options.empty?
         
         fonts = []
+        subset = nil
         
         options.each do |option|
           case option.class.to_s
@@ -52,6 +57,9 @@ module Google
             # include the font
             fonts << font_name
           when "Hash"
+            subset ||= if option.has_key? :subset
+              "&subset=" << [option.delete(:subset)].flatten.join(',')
+            else '' end
             fonts += option.inject([]) do |result, (font_name, sizes)|
               # ensure sizes is an Array
               sizes = Array(sizes)
@@ -92,11 +100,8 @@ module Google
         tag 'link', {
             :rel  => :stylesheet,
             :type => Mime::CSS,
-            :href => "http://fonts.googleapis.com/css?family=#{family}"
-            :href => "#{request_method}://fonts.googleapis.com/css?family=#{family}"
-          },
-          false,
-          false
+            :href => "#{request_method}://fonts.googleapis.com/css?family=#{family}#{subset}"
+          }
       end
     end
     
