@@ -92,7 +92,6 @@ module Google
         tag 'link', {
             :rel  => :stylesheet,
             :type => Mime::CSS,
-            :href => "http://fonts.googleapis.com/css?family=#{family}"
             :href => "#{request_method}://fonts.googleapis.com/css?family=#{family}"
           },
           false,
