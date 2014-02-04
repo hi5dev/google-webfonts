@@ -41,7 +41,7 @@ describe Google::Webfonts::Helper do
     end
     
     specify "with 1 font as a String" do
-      validate google_webfonts_link_tag("hello"), "Hello"
+      validate google_webfonts_link_tag("Hello"), "Hello"
     end
     
     specify "with 1 font as a Symbol" do
@@ -49,11 +49,11 @@ describe Google::Webfonts::Helper do
     end
     
     specify "with multiple fonts as Strings" do
-      validate google_webfonts_link_tag("hello", "world"), "Hello|World"
+      validate google_webfonts_link_tag("Hello", "World"), "Hello|World"
     end
     
     specify "with multiple fonts as a combination of Strings and Symbols" do
-      validate google_webfonts_link_tag("hello", :world), "Hello|World"
+      validate google_webfonts_link_tag("Hello", :world), "Hello|World"
     end
     
     context "with a Hash and 1 font name" do
@@ -69,11 +69,11 @@ describe Google::Webfonts::Helper do
       
       context "with a String as the key" do
         specify "with 1 font size" do
-          validate google_webfonts_link_tag("hello" => 100), "Hello:100"
+          validate google_webfonts_link_tag("Hello" => 100), "Hello:100"
         end
         
         specify "with 2 font sizes" do
-          validate google_webfonts_link_tag("hello" => [100, 200]), "Hello:100,200"
+          validate google_webfonts_link_tag("Hello" => [100, 200]), "Hello:100,200"
         end
       end
     end
@@ -91,11 +91,11 @@ describe Google::Webfonts::Helper do
       
       context "with a String as the key" do
         specify "with 1 font size" do
-          validate google_webfonts_link_tag("hello" => 100, "world" => 200), "Hello:100|World:200"
+          validate google_webfonts_link_tag("Hello" => 100, "World" => 200), "Hello:100|World:200"
         end
         
         specify "with 2 font sizes" do
-          validate google_webfonts_link_tag("hello" => [100, 200], "world" => [300, 400]), "Hello:100,200|World:300,400"
+          validate google_webfonts_link_tag("Hello" => [100, 200], "World" => [300, 400]), "Hello:100,200|World:300,400"
         end
       end
     end
