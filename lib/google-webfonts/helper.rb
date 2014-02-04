@@ -5,6 +5,18 @@ module Google
     # This module is automatically included in your Rails view helpers.
     module Helper
       include ActionView::Helpers::TagHelper
+
+      def titleize(words)
+        titleized_words = words.split.map do |word| 
+          unless word.match(/[A-Z]{2}/)
+            word.titleize
+          else
+            word
+          end
+        end
+          
+        titleized_words.join(' ')
+     end
       
       # Public: Generates a Google Webfonts link tag
       # 
@@ -42,10 +54,11 @@ module Google
         
         options.each do |option|
           case option.class.to_s
+          when "Symbol", "String"            
           when "Symbol", "String"
             # titleize the font name
-            font_name = option.to_s.titleize
-            
+            font_name = titleize(option.to_s)
+
             # replace any spaces with pluses
             font_name = font_name.gsub(" ", "+")
             
