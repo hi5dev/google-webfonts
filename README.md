@@ -1,7 +1,7 @@
 # Google::Webfonts
 
 Provides a helper for using [Google Webfonts](http://www.google.com/webfonts) in
-Rails or Sinatra, although it can be used outside of those frameworks as well.
+Rails or Sinatra.
 
 ## Installation
 
