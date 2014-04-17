@@ -8,6 +8,13 @@ module Google
         @https_request = OpenStruct.new(:ssl? => true)
       end
 
+      def test_subsets
+        tag = LinkTag.new(@http_request, droid_sans: [400, 700],
+          subset: %w[latin cyrillic]).result
+        assert_tag tag, 'link',
+          href: 'http://fonts.googleapis.com/css?family=Droid+Sans%3A400%2C700&subset=latin%2Ccyrillic'
+      end
+
       def test_uri_protocol
         tag = LinkTag.new(@http_request, droid_sans: [400, 700]).result
         assert_tag tag, 'link',

@@ -5,14 +5,13 @@ module Google
 
       attr_reader :result
 
+      alias_method :to_s, :result
+
       def initialize(request, *opts)
         @request = request
-        fonts = fonts_from_options(opts)
-        @result = tag(:link, link_options(fonts))
-      end
-
-      def to_s
-        @result
+        @subsets = []
+        @fonts = fonts_from_options(opts)
+        @result = tag(:link, link_options, false, false)
       end
 
       private
@@ -30,6 +29,8 @@ module Google
       end
 
       def parse_google_webfont_hash(hash)
+        add_subsets(hash.delete(:subset))
+
         hash.inject([]) do |result, (font_name, sizes)|
           font_name = parse_google_webfont_name(font_name)
           result << "#{font_name}:#{Array(sizes).join(",")}"
@@ -41,16 +42,26 @@ module Google
         name.gsub("_", " ")
       end
 
-      def link_options(fonts)
+      def link_options
         { rel: 'stylesheet',
           type: Mime::CSS,
-          href: uri(fonts).to_s }
+          href: uri.to_s }
       end
 
-      def uri(fonts)
-        family = fonts.join("|")
+      def add_subsets(subsets)
+        @subsets += Array(subsets)
+      end
+
+      def uri
         u = @request.ssl? ? URI::HTTPS : URI::HTTP
-        u.build(host: HOST, path: PATH, query: { family: family }.to_query)
+        u.build(host: HOST, path: PATH, query: uri_query)
+      end
+
+      def uri_query
+        {}.tap {|q|
+          q['family'] = @fonts.join("|")
+          q['subset'] = @subsets.join(",") if @subsets.any?
+        }.to_query
       end
     end
   end
