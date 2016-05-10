@@ -44,7 +44,7 @@ module Google
 
       def link_options
         { rel: 'stylesheet',
-          type: Mime::CSS,
+          type: Mime[:css],
           href: uri.to_s }
       end
 
