@@ -4,10 +4,10 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'google-webfonts/version'
 
 Gem::Specification.new do |spec|
-  spec.name = "google-webfonts"
+  spec.name = "GoogleWebfonts"
   spec.version = Google::Webfonts::VERSION
-  spec.authors = ["Travis Haynes"]
-  spec.email = ["travis.j.haynes@gmail.com"]
+  spec.authors = ["Travis Haynes", "Evgeniy Kulikov"]
+  spec.email = ["travis.j.haynes@gmail.com", "im@kulikov.im"]
 
   spec.summary = "Provides a helper for using Google Webfonts in Rails or " +
                  "Sinatra, although it can be used outside of those " +
@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
 
   spec.description = "Google Webfonts helper for Rails or Sinatra applications."
 
-  spec.homepage = "https://github.com/travishaynes/Google-Webfonts-Helper"
+  spec.homepage = "https://github.com/im-kulikov/Google-Webfonts-Helper"
   spec.files = `git ls-files -z`.split("\x0")
   spec.executables = spec.files.grep(%r{^bin/}) {|f| File.basename(f) }
   spec.test_files = spec.files.grep(%r{^test/})
