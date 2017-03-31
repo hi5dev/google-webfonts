@@ -44,7 +44,7 @@ module Google
 
       def link_options
         { rel: 'stylesheet',
-          type: Mime::CSS,
+          type: type_css,
           href: uri.to_s }
       end
 
@@ -63,6 +63,16 @@ module Google
           q['subset'] = @subsets.join(",") if @subsets.any?
         }.to_query
       end
+      
+      private
+
+        def type_css
+          if ActionPack::VERSION::MAJOR < 5
+            return Mime::CSS
+          end
+
+          return Mime[:css]
+        end
     end
   end
 end
