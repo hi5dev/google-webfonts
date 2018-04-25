@@ -4,6 +4,6 @@
 module Google
   module Webfonts
     # The gem's semantic version.
-    VERSION = '0.3.0'
+    VERSION = '0.3.1'
   end
 end
