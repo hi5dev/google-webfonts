@@ -1,7 +1,7 @@
 # Google::Webfonts
 
-Provides a helper for using [Google Webfonts](http://www.google.com/webfonts) in
-Rails or Sinatra.
+Provides a helper for using [Google Webfonts](http://www.google.com/webfonts)
+with the Ruby programming language.
 
 ## Installation
 
@@ -19,77 +19,103 @@ Or install it yourself as:
 
 ## Usage
 
-### Syntax
+```ruby
+include Google::Webfonts::Helper
 
-    google_webfonts_link_tag :font_name => [sizes], ...
+google_webfonts_link_tag font_name: [weights]
+```
 
 ### Examples
 
-Basic usage:
+#### Basic usage:
 
-    google_webfonts_link_tag :droid_sans        => [400, 700],
-                             :yanone_kaffeesatz => [300, 400]
+```ruby
+google_webfonts_link_tag droid_sans: [400, 700], yanone_kaffeesatz: [300, 400]
+```
 
-The sizes are optional, and do not have to be in an Array if you are only
-including one size. For example:
+The weights are optional, and do not have to be in an Array if you are only
+including one. For example:
 
-    google_webfonts_link_tag :droid_sans
-    # => generates a tag for Droid+Sans without specifying the font weight
-    
-    google_webfonts_link_tag :droid_sans => 400
-    # => generates a tag for Droid+Sans with 400 weight
-    
-    google_webfonts_link_tag :droid_sans => [400, 700]
-    # => generates a tag for Droid+Sans with 400 and 700 weights
+```ruby
+# Generate a tag for Droid+Sans without specifying the font weight.
+google_webfonts_link_tag :droid_sans
 
-You can also use a String instead of a Symbol if you'd prefer. For example:
+# Generate a tag for Droid+Sans with 400 weight.
+google_webfonts_link_tag :droid_sans => 400
 
-    google_webfonts_link_tag "Droid Sans", "Yanone Kaffeesatz" => 400
-    # includes Droid+Sans without a specified weight
-    # and Yanone+Kaffeesatz with weight 400
+# Generate a tag for Droid+Sans with 400 and 700 weights.
+google_webfonts_link_tag :droid_sans => [400, 700]
+```
+
+In certain cases it will be necessary to use Strings instead of Symbols for the 
+font names. The helper method titleizes the symbols when converting it to a 
+Google Webfonts compatible name. This does not work for every font name. For 
+example:  
+
+```ruby
+# If a Symbol was provided here, the "T" would be lower-case, which would 
+# result in an invalid link.
+google_webfonts_link_tag 'PT Sans'
+```
 
 ### Using in Rails
 
-No additional work required to use this gem in a Rails application. Just add
-it to your application's Gemfile, and it is automatically available in your
-views.
+Require the gem like this in your Gemfile when using with Rails:
 
-You will, however, need to `include Google::Webfonts::Helper` if you want to use
-it outside of a view.
+```ruby
+gem 'google-webfonts', require: 'google/webfonts/rails'
+```
+
+The `google_webfonts_link_tag` helper method will automatically be available 
+to your views. If you need to use it outside of the views, include this module:
+
+```ruby
+include Google::Webfonts::Helper
+```
 
 ### Using in Sinatra
 
 Here is a simple "Hello World" example for using Google::Webfonts in a Sinatra
 app:
 
-    # app.rb
-    require 'rubygems'
-    require 'sinatra'
-    require 'google-webfonts' # <= this must be required after 'sinatra'
-    
-    get '/' do
-      erb :index
-    end
+```ruby
+# app.rb
+require 'rubygems'
+require 'sinatra'
+
+# This must be required after requiring sinatra.
+require 'google/webfonts/sinatra'
+
+get '/' do
+  erb :index
+end
+```
 
 ###
 
-    # views/index.erb
-    <html>
-      <head>
-        <%= google_webfonts_link_tag "Droid Sans" %>
-      </head>
-      <body>
-        <p style="font-family: 'Droid+Sans', sans-serif;">
-          Hello World!
-        </p>
-      </body>
-    </html>
+```erb
+# views/index.erb
+<html>
+  <head>
+    <%= google_webfonts_link_tag "Droid Sans" %>
+  </head>
+  <body>
+    <p style="font-family: 'Droid+Sans', sans-serif;">
+      Hello World!
+    </p>
+  </body>
+</html>
+```
+
+## Development
+
+After checking out the repo, run `bin/setup` to install dependencies. Then, 
+run `rake test` to run the tests. You can also run `bin/console` for an 
+interactive prompt that will allow you to experiment.
+
+To install this gem onto your local machine, run `bundle exec rake install`.
 
 ## Contributing
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Ensure what your code is well tested, and all the tests pass. (`rspec spec`)
-6. Create new Pull Request
+Bug reports and pull requests are welcome on GitHub at
+https://github.com/hi5dev/google-webfonts.

@@ -1,16 +1,10 @@
-ENV['RACK_ENV'] = 'test'
+# coding: utf-8
+# frozen_string_literal: true
 
-require 'ostruct'
-require 'sinatra'
-require 'google-webfonts'
+$: << File.expand_path('../lib', __dir__)
+
+require 'google/webfonts'
 require 'minitest/autorun'
-require 'minitest/unit'
-require 'rack/test'
+require 'minitest/reporters'
 
-class Minitest::Test
-  def assert_tag(el, tag, props={})
-    assert el =~ /<#{tag}.*\/>/ , "expected a #{tag} tag"
-    assert props.all? {|key, value| el.include?("#{key}=\"#{value}\"") },
-      "tag's properties do not match"
-  end
-end
+Minitest::Reporters.use!
