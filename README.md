@@ -1,5 +1,7 @@
 # Google::Webfonts
 
+[![Build Status](https://travis-ci.org/hi5dev/google-webfonts.svg?branch=master)](https://travis-ci.org/hi5dev/google-webfonts)
+
 Provides a helper for using [Google Webfonts](http://www.google.com/webfonts)
 with the Ruby programming language.
 
