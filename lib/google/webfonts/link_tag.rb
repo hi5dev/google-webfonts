@@ -91,6 +91,16 @@ module Google
       #
       # @return [String] HTML for the link tag.
       def to_s
+        to_html
+      end
+
+      protected
+
+      # This is used by #to_s to create a <link> tag so that #to_s can be
+      # overridden depending on the web framework being used - e.g. with Rails.
+      #
+      # @return [String] HTML for the link tag.
+      def to_html
         %(<link href="#{href}" rel="stylesheet">)
       end
 
