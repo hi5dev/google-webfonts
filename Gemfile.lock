@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    google-webfonts (0.3.1)
+    google-webfonts (0.3.2)
 
 GEM
   remote: https://rubygems.org/
@@ -55,4 +55,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
