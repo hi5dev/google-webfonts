@@ -11,7 +11,12 @@ require 'minitest/autorun'
 require 'minitest/reporters'
 
 # Mocking a #safe_html method for strings - used to test Rails integration.
-HtmlSafeString = Class.new(String)
-String.define_method(:html_safe) { HtmlSafeString.new(self) }
+class HtmlSafeString < String; end
+
+class String
+  def html_safe
+    HtmlSafeString.new(self)
+  end
+end
 
 Minitest::Reporters.use!

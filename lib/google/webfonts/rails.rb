@@ -3,13 +3,14 @@
 
 # Load the library.
 require 'google/webfonts'
-require 'google/webfonts/link_tag'
 
-Google::Webfonts::LinkTag.define_method(:to_s) do
+class Google::Webfonts::LinkTag
   # The default implmentation will escape the HTML when used with Rails.
   # This override ensures that the HTML is actually included document
   # rather than displayed as text in the browser.
-  to_html.html_safe
+  def to_s
+    to_html.html_safe
+  end
 end
 
 # Include the webfonts helper methods in the Rails view helpers.

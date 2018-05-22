@@ -15,7 +15,7 @@ module Google
 
       # Restore the default #to_html implementation when these tests finish.
       Minitest.after_run do
-        Google::Webfonts::LinkTag.define_method(:to_s) { to_html }
+        Google::Webfonts::LinkTag.send(:define_method, :to_s) { to_html }
       end
 
       def test_action_view_helper
